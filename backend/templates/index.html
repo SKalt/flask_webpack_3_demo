@@ -1,0 +1,16 @@
+<html>
+<head>
+  <title>Flask app demo</title>
+  <meta charset="utf-8" />
+  <!--
+    point to JS bundles as dictated by frontend/dist/manifest.json,
+  -->
+</head>
+<body>
+  <div id="main">
+    
+  </div>
+  {{ javascript_tag('main') | safe }}
+  <!-- <script src="{{asset_url_for('main.js')}}></script>" -->
+</body>
+</html>

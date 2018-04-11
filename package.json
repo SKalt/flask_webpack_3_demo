@@ -4,7 +4,11 @@
   "description": "A demo flask + webpack 3 application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config ./frontend/build/webpack.prod.js",
+    "server:dev": "webpack-dev-server --hot --inline --config ./frontend/build/webpack.dev.js",
+    "server:flask": "python ./backend/app.py",
+    "start": "npm-run-all --parallel server:*"
   },
   "keywords": [
     "flask",
@@ -14,13 +18,15 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.19.1",
     "eslint-config-google": "^0.9.1",
-    "webpack": "^4.5.0",
-    "webpack-dev-server": "^3.1.1",
+    "npm-run-all": "^4.1.2",
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^2.11.2",
     "webpack-manifest-plugin": "^2.0.0-rc.2",
     "webpack-merge": "^4.1.2"
   }

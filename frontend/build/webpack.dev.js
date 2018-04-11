@@ -2,10 +2,13 @@
 const path = require('path');
 const webpack = require('webpack');
 const publicPath = '/dist';
-const ManifestPlugin = require('make-manifest-plugin')(`//localhost:5001${publicPath}`);
+const makeManifestPlugin = require('./make-manifest-plugin');
+const ManifestPlugin = makeManifestPlugin(`//localhost:5001`);
+const merge = require('webpack-merge');
+const base = require('./webpack.base.js');
 const contentBase = path.resolve(__dirname, '../')
 // https://webpack.js.org/configuration/dev-server/#devserver-contentbase
-module.exports = {
+module.exports = merge(base, {
   devServer: { // https://webpack.js.org/configuration/dev-server/
     historyApiFallback: true, // https://webpack.js.org/configuration/dev-server/#devserver-historyapifallback
     noInfo: true,
@@ -18,10 +21,10 @@ module.exports = {
     compress: true,
     publicPath, // the url under which to serve the bundles
     // https://webpack.js.org/configuration/dev-server/#devserver-publicpath-
-    watch: {
-      poll: true,
-      ignored: /node_modules/
-    },
+    // watch: {
+    //   poll: true,
+    //   ignored: /node_modules/
+    // },
   },
   performance: {
     hints: false,
@@ -35,4 +38,4 @@ module.exports = {
       },
     }),
   ],
-};
+});
