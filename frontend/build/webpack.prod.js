@@ -13,6 +13,7 @@ module.exports = merge(base, {
         NODE_ENV: '"production"',
       },
     }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       compress: {
