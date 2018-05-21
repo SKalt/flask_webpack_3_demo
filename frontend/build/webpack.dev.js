@@ -50,10 +50,6 @@ module.exports = merge(base, {
     compress: true,
     publicPath, // the url under which to serve the bundles
     // https://webpack.js.org/configuration/dev-server/#devserver-publicpath-
-    // watch: {
-    //   poll: true,
-    //   ignored: /node_modules/
-    // },
     after() {
       startFlaskServer();
     },
