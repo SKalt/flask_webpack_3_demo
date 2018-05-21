@@ -8,23 +8,25 @@ const ManifestPlugin = makeManifestPlugin(`//localhost:5001`);
 const merge = require('webpack-merge');
 const base = require('./webpack.base.js');
 
-// you'll need to be operating in a python environment with Flask available
-
 const startFlaskServer = (function closure() {
   let started = false;
   return () => {
     if (started) return;
     // else
     let app = spawn(
-      python, ['./backend/app.py'], {env: {'FLASK_DEBUG': 1}}
-    );
-    app.stdout.on('data', (data) => {
-      console.log(`stdout: ${data}`);
-    });
-
-    app.stderr.on('data', (data) => {
-      console.log(`stderr: ${data}`);
-    });
+      'python', ['./backend/app.py'], {
+        env: {
+          /*
+          You'll need to be operating in a python environment with Flask.
+          Assigning PATH below uses any currently active virtual/conda env path
+          modifications in the spawned process.
+          */
+          'PATH': process.env.PATH,
+          'FLASK_DEBUG': 1,
+        },
+      });
+    app.stdout.on('data', (data) => console.log(`stdout: ${data}`));
+    app.stderr.on('data', (data) => console.log(`stderr: ${data}`));
 
     app.on('close', (code) => {
       console.log(`flask app exited with code ${code}`);
