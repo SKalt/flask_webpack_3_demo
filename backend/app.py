@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 import os
 from flask import Flask, render_template
 from flask_webpack import Webpack
@@ -10,7 +11,8 @@ app.config['WEBPACK_MANIFEST_PATH'] = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), '..',  # the project root
     'frontend', 'dist', 'manifest.json'
 )
-# pages = os.path.join(dir_path, '..', 'frontend')
+
+
 @app.route('/')
 def hello_world():
     return render_template('index.html')
@@ -18,4 +20,8 @@ def hello_world():
 
 if __name__ == '__main__':
     webpack.init_app(app)
-    app.run()
+    try:
+        app.run()
+    except Exception as e:
+        print(e)
+        print(app)

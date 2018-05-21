@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config ./frontend/build/webpack.prod.js",
     "server:dev": "webpack-dev-server --hot --inline --config ./frontend/build/webpack.dev.js",
-    "server:flask": "python ./backend/app.py",
-    "start": "npm-run-all --parallel server:*"
+    "start": "npm run server:dev"
   },
   "keywords": [
     "flask",

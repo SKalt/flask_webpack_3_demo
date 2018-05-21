@@ -1,2 +1,2 @@
 export default 'Hello';
-alert('hello')
+alert('hello');

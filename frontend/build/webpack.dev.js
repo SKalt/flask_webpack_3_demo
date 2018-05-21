@@ -1,12 +1,39 @@
 /* env node */
 const path = require('path');
 const webpack = require('webpack');
+const {spawn} = require('child_process');
 const publicPath = '/dist';
 const makeManifestPlugin = require('./make-manifest-plugin');
 const ManifestPlugin = makeManifestPlugin(`//localhost:5001`);
 const merge = require('webpack-merge');
 const base = require('./webpack.base.js');
-const contentBase = path.resolve(__dirname, '../')
+
+// you'll need to be operating in a python environment with Flask available
+
+const startFlaskServer = (function closure() {
+  let started = false;
+  return () => {
+    if (started) return;
+    // else
+    let app = spawn(
+      python, ['./backend/app.py'], {env: {'FLASK_DEBUG': 1}}
+    );
+    app.stdout.on('data', (data) => {
+      console.log(`stdout: ${data}`);
+    });
+
+    app.stderr.on('data', (data) => {
+      console.log(`stderr: ${data}`);
+    });
+
+    app.on('close', (code) => {
+      console.log(`flask app exited with code ${code}`);
+    });
+    started = true;
+  };
+})();
+
+const contentBase = path.resolve(__dirname, '../');
 // https://webpack.js.org/configuration/dev-server/#devserver-contentbase
 module.exports = merge(base, {
   devServer: { // https://webpack.js.org/configuration/dev-server/
@@ -25,6 +52,9 @@ module.exports = merge(base, {
     //   poll: true,
     //   ignored: /node_modules/
     // },
+    after() {
+      startFlaskServer();
+    },
   },
   performance: {
     hints: false,
