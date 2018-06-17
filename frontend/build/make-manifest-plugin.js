@@ -9,6 +9,7 @@ module.exports = function makeManifest(publicPath) {
     console.log({assets, publicPath});
     return {assets, publicPath};
   },
+  writeToFileEmit: true,
     //  {
     //   return {
     //     publicPath,
