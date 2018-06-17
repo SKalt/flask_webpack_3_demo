@@ -17,6 +17,7 @@ app.config['WEBPACK_MANIFEST_PATH'] = os.path.join(dist_path, 'manifest.json')
 dist = Blueprint('dist', __name__, static_folder=dist_path)
 app.register_blueprint(dist)
 
+
 @app.route('/')
 def hello_world():
     return render_template('index.html')
