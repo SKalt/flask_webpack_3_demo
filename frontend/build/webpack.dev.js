@@ -38,6 +38,9 @@ const startFlaskServer = (function closure() {
 const contentBase = path.resolve(__dirname, '../');
 // https://webpack.js.org/configuration/dev-server/#devserver-contentbase
 module.exports = merge(base, {
+  output: {
+    filename: '[name].js',
+  },
   devServer: { // https://webpack.js.org/configuration/dev-server/
     historyApiFallback: true, // https://webpack.js.org/configuration/dev-server/#devserver-historyapifallback
     noInfo: true,
